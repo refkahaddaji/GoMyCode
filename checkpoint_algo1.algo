@@ -1,0 +1,39 @@
+ALGORITHM algorithm_chaine
+VAR
+    chaine: STRING[50];
+    ch : CHAR; 
+    nbChars, nbWords, nbVowels, leng: INTEGER;
+    i, j: INTEGER;
+BEGIN
+   Write("Give the first string to compare");
+   Read(chaine);
+
+    nbWords:= 0;
+    nbVowels:= 0;
+    chaine:=ToLower(chaine);
+    leng:=chaine.length ;
+    write(leng);
+
+    FOR i FROM 0 TO chaine.length-1 STEP 1 DO
+        ch := chaine[i];
+        
+        IF (ch=" " ) THEN 
+            nbWords:= nbWords +1;
+
+        END_IF
+
+    END_FOR
+    write(nbWords+1);
+
+    FOR j FROM 0 TO chaine.length-1 STEP 1 DO
+        ch := chaine[i];
+        IF((ch="a" )OR (ch="e" )OR (ch="i" )OR (ch="o" )OR (ch="u" ) OR (ch="y" )) THEN 
+            nbVowels:= nbVowels+1;
+
+        END_IF 
+
+    END_FOR
+    write(nbVowels);
+
+
+END

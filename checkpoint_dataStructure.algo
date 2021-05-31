@@ -1,0 +1,201 @@
+ALGORITHM problem1_solution1
+VAR
+    t1, t2 : ARRAY_OF INTEGER[20];
+    found:BOOLEAN;
+    i, j, k, l, sum: INTEGER;
+BEGIN
+    FOR k FROM 0 TO 4 DO
+    Read(t1[k]);
+    END_FOR
+    FOR l FROM 0 TO 4 DO
+    Read(t2[l]);
+    END_FOR
+    
+    found:= false;
+    sum:= 0;
+
+    FOR i FROM 0 TO t1.length-1 STEP 1 DO
+        FOR j FROM 0 TO t2.length-1 STEP 1 DO
+            IF (t1[i]= t2[j]) THEN
+                found:=true;
+            END_IF
+                break;   
+        END_FOR 
+        
+        IF (found=true) THEN
+        sum=sum+t1[i]
+        END_IF   
+        found:= false; 
+    END_FOR 
+
+    FOR i FROM 0 TO t2.length-1 STEP 1 DO
+        FOR j FROM 0 TO t1.length-1 STEP 1 DO
+            IF (t1[i]= t2[j]) THEN
+                found:=true;
+            END_IF
+            break;   
+        END_FOR 
+        
+        IF (found=true) THEN
+        sum=sum+t1[i]
+        END_IF   
+        found:= false; 
+    END_FOR 
+
+END
+
+
+ALGORITHM problem1_solution2
+VAR
+    htab : HASH_TABLE<INTEGER,INTEGER>;
+    tab1,tab2 : ARRAY_OF INTEGER[20];
+    i, j, k, l, sum, count: INTEGER;
+BEGIN
+    sum:=0;
+    count:=0;
+
+    FOR k FROM 0 TO 4 DO
+    Read(tab[k]);
+    END_FOR
+    FOR l FROM 0 TO 4 DO
+    Read(t2[l]);
+    END_FOR
+
+    FOR i FROM 0 TO tab1.length -1 STEP 1  DO
+        IF (htab.lookup(tab1[i]) = TRUE) THEN
+            count := htab.get(tab1[i]);
+            htab.insert(tab1[i],count+1);
+        ELSE
+            htab.insert(tab1[i],1);
+        END_IF
+    END_FOR
+
+    FOR j FROM 0 TO tab2.length -1 STEP 1  DO
+        IF (htab.lookup(tab2[j]) = TRUE) THEN
+            count := htab.get(tab2[j]);
+            htab.insert(tab2[j],count+1);
+        ELSE
+            htab.insert(tab2[j],1);
+        END_IF
+    END_FOR
+
+
+    FOR i FROM 0 TO tab1.length -1 STEP 1  DO
+        IF (htab.get(tab1[i]) = 1) THEN
+            sum := sum+ tab1[i];
+            
+        END_IF
+    END_FOR
+
+    FOR j FROM 0 TO tab2.length -1 STEP 1  DO
+        IF (htab.get(tab2[j]) = 1) THEN
+            sum := sum+ tab2[j];
+            
+        END_IF
+    END_FOR
+
+    write (sum)
+
+
+END
+
+
+
+ALGORITHM problem2_solution1
+
+VAR
+    t1, t2 : ARRAY_OF INTEGER[20];
+    isEqual:BOOLEAN;
+    i, j, k ,l , sum: INTEGER;
+BEGIN
+    
+    FOR k FROM 0 TO 4 DO
+    Read(tab[k]);
+    END_FOR
+    FOR l FROM 0 TO 4 DO
+    Read(t2[l]);
+    END_FOR
+
+    isEqual:= false;
+    sum:= 0;
+
+    FOR i FROM 0 TO t1.length-1 STEP 1 DO
+        FOR j FROM 0 TO t2.length-1 STEP 1 DO
+            IF (t1[i]= t2[j]) THEN
+                isEqual:=true;
+            END_IF   
+        END_FOR 
+        IF (isEqual=true) THEN
+        sum=sum+t1[i]
+        END_IF
+        isEqual:=false;    
+    END_FOR 
+
+    FOR i FROM 0 TO t2.length-1 STEP 1 DO
+        FOR j FROM 0 TO t1.length-1 STEP 1 DO
+            IF (t2[i]= t1[j]) THEN
+                isEqual:=true; 
+            END_IF   
+        END_FOR 
+        IF (isEqual=true) THEN
+        sum=sum+t2[i]*2
+        END_IF    
+    END_FOR 
+
+END
+
+
+ALGORITHM problem2_solution2
+VAR
+    htab : HASH_TABLE<INTEGER,INTEGER>;
+    tab1,tab2 : ARRAY_OF INTEGER[20];
+    i, j, k, l, sum, count: INTEGER;
+BEGIN
+
+    FOR k FROM 0 TO 4 DO
+    Read(tab[k]);
+    END_FOR
+    FOR l FROM 0 TO 4 DO
+    Read(t2[l]);
+    END_FOR
+
+    sum:=0;
+    count:=0;
+
+    FOR i FROM 0 TO tab1.length-1 STEP 1  DO
+        IF (htab.lookup(tab1[i]) = TRUE) THEN
+            count := htab.get(tab1[i]);
+            htab.insert(tab1[i],count+1);
+        ELSE
+            htab.insert(tab1[i],1);
+        END_IF
+    END_FOR
+
+    FOR j FROM 0 TO tab2.length-1 STEP 1  DO
+        IF (htab.lookup(tab2[j]) = TRUE) THEN
+            count := htab.get(tab2[j]);
+            htab.insert(tab2[j],count+1);
+        ELSE
+            htab.insert(tab2[j],1);
+        END_IF
+    END_FOR
+
+
+    FOR i FROM 0 TO tab1.length-1 STEP 1  DO
+        IF (htab.get(tab1[i]) > 1) THEN
+            sum := sum+ tab1[i]* htab.get(tab2[i]);
+            
+        END_IF
+    END_FOR
+
+    FOR j FROM 0 TO tab2.length -1 STEP 1  DO
+        IF (htab.get(tab2[j]) = 1) THEN
+            sum := sum+ tab2[j]*htab.get(tab2[j]);
+            
+        END_IF
+    END_FOR
+
+    write (sum)
+
+
+END
